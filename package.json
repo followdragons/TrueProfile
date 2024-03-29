@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@orbs-network/ton-access": "^2.3.3",
+    "@rollup/plugin-alias": "^5.1.0",
     "@ton/core": "^0.56.3",
+    "@ton/crypto": "^3.2.0",
     "@tonconnect/ui-react": "^2.0.0",
     "@twa-dev/sdk": "^6.7.1",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
