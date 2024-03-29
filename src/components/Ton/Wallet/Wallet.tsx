@@ -5,7 +5,7 @@ export const Wallet = () => {
   return (
     wallet && (
       <div>
-        <div>Connected wallet: {wallet.name}</div>
+        <div>Connected wallet: {(wallet as { name: string }).name}</div>
         <div>Device: {wallet.device.appName}</div>
       </div>
     )
