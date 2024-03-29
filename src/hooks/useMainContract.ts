@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SimpleCounter } from "../../simple-counter/build/SimpleCounter/tact_SimpleCounter.ts";
+import { SimpleCounter } from "../contracts/SimpleCounter/tact_SimpleCounter.ts";
 import { useTonClient } from "./useTonClient";
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import { Address, OpenedContract } from "ton-core";
