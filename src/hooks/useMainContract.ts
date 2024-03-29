@@ -20,8 +20,7 @@ export function useMainContract() {
     const contract = SimpleCounter.fromAddress(
       Address.parse("EQBpAfN92UwASDxc5Q-pJQdjjBpwc9KwtpY6BxiGI_xfW-Lk"),
     );
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
+
     return client.open(contract) as OpenedContract<SimpleCounter>;
   }, [client]);
 
