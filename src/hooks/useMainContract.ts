@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { SimpleCounter } from "../contracts/SimpleCounter/tact_SimpleCounter.ts";
 import { useTonClient } from "./useTonClient";
 import { useAsyncInitialize } from "./useAsyncInitialize";
+import { Address, Contract } from "ton-core";
 import { useTonConnect } from "./useTonConnect.ts";
-import { toNano, Address, OpenedContract } from "@ton/core";
-import { Contract } from "ton-core";
+import { toNano, OpenedContract } from "@ton/core";
+
 const sleep = (time: number) =>
   new Promise((resolve) => setTimeout(resolve, time));
 export function useMainContract() {
