@@ -3,6 +3,7 @@ import "./App.css";
 import { TonConnectButton, TonConnectUIProvider } from "@tonconnect/ui-react";
 import { Address } from "./components/Ton/Address/Address.tsx";
 import { Wallet } from "./components/Ton/Wallet/Wallet.tsx";
+import { Counter } from "./components/Ton/Counter/Counter.tsx";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
     >
       <Address />
       <Wallet />
+      <Counter />
       <TonConnectButton />
     </TonConnectUIProvider>
   );
