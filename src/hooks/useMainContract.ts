@@ -20,7 +20,7 @@ export function useMainContract() {
       Address.parse("EQBpAfN92UwASDxc5Q-pJQdjjBpwc9KwtpY6BxiGI_xfW-Lk"),
     ) as Contract;
 
-    return client.open(contract) as OpenedContract<SimpleCounter>;
+    return client.open(contract) as unknown as OpenedContract<SimpleCounter>;
   }, [client]);
 
   useEffect(() => {
