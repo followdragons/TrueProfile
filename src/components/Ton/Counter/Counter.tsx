@@ -8,13 +8,13 @@ export const Counter = () => {
   return (
     <>
       {connected && (
-        <a
+        <button
           onClick={() => {
             sendIncrement();
           }}
         >
           Increment
-        </a>
+        </button>
       )}
       <div>Value: {val}</div>
     </>

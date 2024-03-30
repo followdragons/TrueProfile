@@ -13,17 +13,15 @@ This template provides a minimal setup to get TMA working in Vite with React, Ty
 
 ## Usage
 
-```bash
-# npm
-npm install
-npm run dev --host
-```
+latest 20
 
 ```bash
 # yarn
 yarn
 yarn dev --host
 ```
+
+## Node version
 
 # Links
 

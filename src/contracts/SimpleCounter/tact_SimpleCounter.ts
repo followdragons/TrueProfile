@@ -1,18 +1,15 @@
-import { 
+import {
     Cell,
-    Slice, 
-    Address, 
-    Builder, 
-    beginCell, 
-    ComputeError, 
-    TupleItem, 
-    TupleReader, 
-    Dictionary, 
-    contractAddress, 
-    ContractProvider, 
-    Sender, 
-    Contract, 
-    ContractABI, 
+    Slice,
+    Address,
+    Builder,
+    beginCell,
+    TupleReader,
+    contractAddress,
+    ContractProvider,
+    Sender,
+    Contract,
+    ContractABI,
     ABIType,
     ABIGetter,
     ABIReceiver,
@@ -41,20 +38,20 @@ export function loadStateInit(slice: Slice) {
     return { $$type: 'StateInit' as const, code: _code, data: _data };
 }
 
-function loadTupleStateInit(source: TupleReader) {
+export function loadTupleStateInit(source: TupleReader) {
     const _code = source.readCell();
     const _data = source.readCell();
     return { $$type: 'StateInit' as const, code: _code, data: _data };
 }
 
-function storeTupleStateInit(source: StateInit) {
+export function storeTupleStateInit(source: StateInit) {
     const builder = new TupleBuilder();
     builder.writeCell(source.code);
     builder.writeCell(source.data);
     return builder.build();
 }
 
-function dictValueParserStateInit(): DictionaryValue<StateInit> {
+export function dictValueParserStateInit(): DictionaryValue<StateInit> {
     return {
         serialize: (src, buidler) => {
             buidler.storeRef(beginCell().store(storeStateInit(src)).endCell());
@@ -92,7 +89,7 @@ export function loadContext(slice: Slice) {
     return { $$type: 'Context' as const, bounced: _bounced, sender: _sender, value: _value, raw: _raw };
 }
 
-function loadTupleContext(source: TupleReader) {
+export function loadTupleContext(source: TupleReader) {
     const _bounced = source.readBoolean();
     const _sender = source.readAddress();
     const _value = source.readBigNumber();
@@ -100,7 +97,7 @@ function loadTupleContext(source: TupleReader) {
     return { $$type: 'Context' as const, bounced: _bounced, sender: _sender, value: _value, raw: _raw };
 }
 
-function storeTupleContext(source: Context) {
+export function storeTupleContext(source: Context) {
     const builder = new TupleBuilder();
     builder.writeBoolean(source.bounced);
     builder.writeAddress(source.sender);
@@ -109,7 +106,7 @@ function storeTupleContext(source: Context) {
     return builder.build();
 }
 
-function dictValueParserContext(): DictionaryValue<Context> {
+export function dictValueParserContext(): DictionaryValue<Context> {
     return {
         serialize: (src, buidler) => {
             buidler.storeRef(beginCell().store(storeContext(src)).endCell());
@@ -156,7 +153,7 @@ export function loadSendParameters(slice: Slice) {
     return { $$type: 'SendParameters' as const, bounce: _bounce, to: _to, value: _value, mode: _mode, body: _body, code: _code, data: _data };
 }
 
-function loadTupleSendParameters(source: TupleReader) {
+export function loadTupleSendParameters(source: TupleReader) {
     const _bounce = source.readBoolean();
     const _to = source.readAddress();
     const _value = source.readBigNumber();
@@ -167,7 +164,7 @@ function loadTupleSendParameters(source: TupleReader) {
     return { $$type: 'SendParameters' as const, bounce: _bounce, to: _to, value: _value, mode: _mode, body: _body, code: _code, data: _data };
 }
 
-function storeTupleSendParameters(source: SendParameters) {
+export function storeTupleSendParameters(source: SendParameters) {
     const builder = new TupleBuilder();
     builder.writeBoolean(source.bounce);
     builder.writeAddress(source.to);
@@ -179,7 +176,7 @@ function storeTupleSendParameters(source: SendParameters) {
     return builder.build();
 }
 
-function dictValueParserSendParameters(): DictionaryValue<SendParameters> {
+export function dictValueParserSendParameters(): DictionaryValue<SendParameters> {
     return {
         serialize: (src, buidler) => {
             buidler.storeRef(beginCell().store(storeSendParameters(src)).endCell());
@@ -210,18 +207,18 @@ export function loadDeploy(slice: Slice) {
     return { $$type: 'Deploy' as const, queryId: _queryId };
 }
 
-function loadTupleDeploy(source: TupleReader) {
+export function loadTupleDeploy(source: TupleReader) {
     const _queryId = source.readBigNumber();
     return { $$type: 'Deploy' as const, queryId: _queryId };
 }
 
-function storeTupleDeploy(source: Deploy) {
+export function storeTupleDeploy(source: Deploy) {
     const builder = new TupleBuilder();
     builder.writeNumber(source.queryId);
     return builder.build();
 }
 
-function dictValueParserDeploy(): DictionaryValue<Deploy> {
+export function dictValueParserDeploy(): DictionaryValue<Deploy> {
     return {
         serialize: (src, buidler) => {
             buidler.storeRef(beginCell().store(storeDeploy(src)).endCell());
@@ -252,18 +249,18 @@ export function loadDeployOk(slice: Slice) {
     return { $$type: 'DeployOk' as const, queryId: _queryId };
 }
 
-function loadTupleDeployOk(source: TupleReader) {
+export function loadTupleDeployOk(source: TupleReader) {
     const _queryId = source.readBigNumber();
     return { $$type: 'DeployOk' as const, queryId: _queryId };
 }
 
-function storeTupleDeployOk(source: DeployOk) {
+export function storeTupleDeployOk(source: DeployOk) {
     const builder = new TupleBuilder();
     builder.writeNumber(source.queryId);
     return builder.build();
 }
 
-function dictValueParserDeployOk(): DictionaryValue<DeployOk> {
+export function dictValueParserDeployOk(): DictionaryValue<DeployOk> {
     return {
         serialize: (src, buidler) => {
             buidler.storeRef(beginCell().store(storeDeployOk(src)).endCell());
@@ -297,20 +294,20 @@ export function loadFactoryDeploy(slice: Slice) {
     return { $$type: 'FactoryDeploy' as const, queryId: _queryId, cashback: _cashback };
 }
 
-function loadTupleFactoryDeploy(source: TupleReader) {
+export function loadTupleFactoryDeploy(source: TupleReader) {
     const _queryId = source.readBigNumber();
     const _cashback = source.readAddress();
     return { $$type: 'FactoryDeploy' as const, queryId: _queryId, cashback: _cashback };
 }
 
-function storeTupleFactoryDeploy(source: FactoryDeploy) {
+export function storeTupleFactoryDeploy(source: FactoryDeploy) {
     const builder = new TupleBuilder();
     builder.writeNumber(source.queryId);
     builder.writeAddress(source.cashback);
     return builder.build();
 }
 
-function dictValueParserFactoryDeploy(): DictionaryValue<FactoryDeploy> {
+export function dictValueParserFactoryDeploy(): DictionaryValue<FactoryDeploy> {
     return {
         serialize: (src, buidler) => {
             buidler.storeRef(beginCell().store(storeFactoryDeploy(src)).endCell());
@@ -344,20 +341,20 @@ export function loadAdd(slice: Slice) {
     return { $$type: 'Add' as const, queryId: _queryId, amount: _amount };
 }
 
-function loadTupleAdd(source: TupleReader) {
+export function loadTupleAdd(source: TupleReader) {
     const _queryId = source.readBigNumber();
     const _amount = source.readBigNumber();
     return { $$type: 'Add' as const, queryId: _queryId, amount: _amount };
 }
 
-function storeTupleAdd(source: Add) {
+export function storeTupleAdd(source: Add) {
     const builder = new TupleBuilder();
     builder.writeNumber(source.queryId);
     builder.writeNumber(source.amount);
     return builder.build();
 }
 
-function dictValueParserAdd(): DictionaryValue<Add> {
+export function dictValueParserAdd(): DictionaryValue<Add> {
     return {
         serialize: (src, buidler) => {
             buidler.storeRef(beginCell().store(storeAdd(src)).endCell());
@@ -368,7 +365,7 @@ function dictValueParserAdd(): DictionaryValue<Add> {
     }
 }
 
- type SimpleCounter_init_args = {
+type SimpleCounter_init_args = {
     $$type: 'SimpleCounter_init_args';
     id: bigint;
 }
@@ -419,57 +416,57 @@ const SimpleCounter_errors: { [key: number]: { message: string } } = {
 }
 
 const SimpleCounter_types: ABIType[] = [
-    {"name":"StateInit","header":null,"fields":[{"name":"code","type":{"kind":"simple","type":"cell","optional":false}},{"name":"data","type":{"kind":"simple","type":"cell","optional":false}}]},
-    {"name":"Context","header":null,"fields":[{"name":"bounced","type":{"kind":"simple","type":"bool","optional":false}},{"name":"sender","type":{"kind":"simple","type":"address","optional":false}},{"name":"value","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"raw","type":{"kind":"simple","type":"slice","optional":false}}]},
-    {"name":"SendParameters","header":null,"fields":[{"name":"bounce","type":{"kind":"simple","type":"bool","optional":false}},{"name":"to","type":{"kind":"simple","type":"address","optional":false}},{"name":"value","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"mode","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"body","type":{"kind":"simple","type":"cell","optional":true}},{"name":"code","type":{"kind":"simple","type":"cell","optional":true}},{"name":"data","type":{"kind":"simple","type":"cell","optional":true}}]},
-    {"name":"Deploy","header":2490013878,"fields":[{"name":"queryId","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
-    {"name":"DeployOk","header":2952335191,"fields":[{"name":"queryId","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
-    {"name":"FactoryDeploy","header":1829761339,"fields":[{"name":"queryId","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"cashback","type":{"kind":"simple","type":"address","optional":false}}]},
-    {"name":"Add","header":2335447074,"fields":[{"name":"queryId","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"amount","type":{"kind":"simple","type":"uint","optional":false,"format":32}}]},
+    { "name": "StateInit", "header": null, "fields": [{ "name": "code", "type": { "kind": "simple", "type": "cell", "optional": false } }, { "name": "data", "type": { "kind": "simple", "type": "cell", "optional": false } }] },
+    { "name": "Context", "header": null, "fields": [{ "name": "bounced", "type": { "kind": "simple", "type": "bool", "optional": false } }, { "name": "sender", "type": { "kind": "simple", "type": "address", "optional": false } }, { "name": "value", "type": { "kind": "simple", "type": "int", "optional": false, "format": 257 } }, { "name": "raw", "type": { "kind": "simple", "type": "slice", "optional": false } }] },
+    { "name": "SendParameters", "header": null, "fields": [{ "name": "bounce", "type": { "kind": "simple", "type": "bool", "optional": false } }, { "name": "to", "type": { "kind": "simple", "type": "address", "optional": false } }, { "name": "value", "type": { "kind": "simple", "type": "int", "optional": false, "format": 257 } }, { "name": "mode", "type": { "kind": "simple", "type": "int", "optional": false, "format": 257 } }, { "name": "body", "type": { "kind": "simple", "type": "cell", "optional": true } }, { "name": "code", "type": { "kind": "simple", "type": "cell", "optional": true } }, { "name": "data", "type": { "kind": "simple", "type": "cell", "optional": true } }] },
+    { "name": "Deploy", "header": 2490013878, "fields": [{ "name": "queryId", "type": { "kind": "simple", "type": "uint", "optional": false, "format": 64 } }] },
+    { "name": "DeployOk", "header": 2952335191, "fields": [{ "name": "queryId", "type": { "kind": "simple", "type": "uint", "optional": false, "format": 64 } }] },
+    { "name": "FactoryDeploy", "header": 1829761339, "fields": [{ "name": "queryId", "type": { "kind": "simple", "type": "uint", "optional": false, "format": 64 } }, { "name": "cashback", "type": { "kind": "simple", "type": "address", "optional": false } }] },
+    { "name": "Add", "header": 2335447074, "fields": [{ "name": "queryId", "type": { "kind": "simple", "type": "uint", "optional": false, "format": 64 } }, { "name": "amount", "type": { "kind": "simple", "type": "uint", "optional": false, "format": 32 } }] },
 ]
 
 const SimpleCounter_getters: ABIGetter[] = [
-    {"name":"counter","arguments":[],"returnType":{"kind":"simple","type":"int","optional":false,"format":257}},
-    {"name":"id","arguments":[],"returnType":{"kind":"simple","type":"int","optional":false,"format":257}},
+    { "name": "counter", "arguments": [], "returnType": { "kind": "simple", "type": "int", "optional": false, "format": 257 } },
+    { "name": "id", "arguments": [], "returnType": { "kind": "simple", "type": "int", "optional": false, "format": 257 } },
 ]
 
 const SimpleCounter_receivers: ABIReceiver[] = [
-    {"receiver":"internal","message":{"kind":"typed","type":"Add"}},
-    {"receiver":"internal","message":{"kind":"typed","type":"Deploy"}},
+    { "receiver": "internal", "message": { "kind": "typed", "type": "Add" } },
+    { "receiver": "internal", "message": { "kind": "typed", "type": "Deploy" } },
 ]
 
 export class SimpleCounter implements Contract {
-    
+
     static async init(id: bigint) {
         return await SimpleCounter_init(id);
     }
-    
+
     static async fromInit(id: bigint) {
         const init = await SimpleCounter_init(id);
         const address = contractAddress(0, init);
         return new SimpleCounter(address, init);
     }
-    
+
     static fromAddress(address: Address) {
         return new SimpleCounter(address);
     }
-    
-    readonly address: Address; 
+
+    readonly address: Address;
     readonly init?: { code: Cell, data: Cell };
     readonly abi: ContractABI = {
-        types:  SimpleCounter_types,
+        types: SimpleCounter_types,
         getters: SimpleCounter_getters,
         receivers: SimpleCounter_receivers,
         errors: SimpleCounter_errors,
     };
-    
+
     private constructor(address: Address, init?: { code: Cell, data: Cell }) {
         this.address = address;
         this.init = init;
     }
-    
-    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: Add | Deploy) {
-        
+
+    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean | null | undefined }, message: Add | Deploy) {
+
         let body: Cell | null = null;
         if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'Add') {
             body = beginCell().store(storeAdd(message)).endCell();
@@ -478,23 +475,23 @@ export class SimpleCounter implements Contract {
             body = beginCell().store(storeDeploy(message)).endCell();
         }
         if (body === null) { throw new Error('Invalid message type'); }
-        
+
         await provider.internal(via, { ...args, body: body });
-        
+
     }
-    
+
     async getCounter(provider: ContractProvider) {
         const builder = new TupleBuilder();
         const source = (await provider.get('counter', builder.build())).stack;
         const result = source.readBigNumber();
         return result;
     }
-    
+
     async getId(provider: ContractProvider) {
         const builder = new TupleBuilder();
         const source = (await provider.get('id', builder.build())).stack;
         const result = source.readBigNumber();
         return result;
     }
-    
+
 }

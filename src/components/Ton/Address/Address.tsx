@@ -6,7 +6,7 @@ export const Address = () => {
 
   return (
     userFriendlyAddress && (
-      <div>
+      <div className="text-xs space-y-2 text-slate-700">
         <div>User-friendly address: {userFriendlyAddress}</div>
         <div>Raw address: {rawAddress}</div>
       </div>

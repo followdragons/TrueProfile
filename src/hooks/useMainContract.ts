@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import { SimpleCounter } from "../contracts/SimpleCounter/tact_SimpleCounter.ts";
 import { useTonClient } from "./useTonClient";
 import { useAsyncInitialize } from "./useAsyncInitialize";
-import { Address, Contract } from "ton-core";
 import { useTonConnect } from "./useTonConnect.ts";
-import { toNano, OpenedContract } from "@ton/core";
+import { toNano, Address } from "@ton/core";
 
 const sleep = (time: number) =>
   new Promise((resolve) => setTimeout(resolve, time));
@@ -22,8 +21,8 @@ export function useMainContract() {
     );
 
     return client.open(
-      contract as unknown as Contract,
-    ) as unknown as OpenedContract<SimpleCounter>;
+      contract,
+    );
   }, [client]);
 
   useEffect(() => {
