@@ -1,8 +1,10 @@
-import React from "react";
-import { TonClient } from '@ton/ton';
 import { useQuery } from '@tanstack/react-query';
-import { queryKeys } from '../libs/queries/queryKeys';
+import { TonClient } from '@ton/ton';
+import React from "react";
 import { useEffect, useState } from 'react';
+
+import { queryKeys } from '~/libs/queries/queryKeys';
+
 
 function useTonClientQuery() {
   const tonEndpointQuery = useQuery({ ...queryKeys.tonEndpoint.all })

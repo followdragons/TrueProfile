@@ -1,21 +1,20 @@
 import {
-    Cell,
-    Slice,
-    Address,
-    Builder,
-    beginCell,
-    TupleReader,
-    contractAddress,
-    ContractProvider,
-    Sender,
-    Contract,
-    ContractABI,
-    ABIType,
     ABIGetter,
     ABIReceiver,
+    ABIType,
+    Address,
+    beginCell,
+    Builder,
+    Cell,
+    Contract,
+    ContractABI,
+    contractAddress,
+    ContractProvider,
+    DictionaryValue,
+    Sender,
+    Slice,
     TupleBuilder,
-    DictionaryValue
-} from '@ton/core';
+    TupleReader} from '@ton/core';
 
 export type StateInit = {
     $$type: 'StateInit';

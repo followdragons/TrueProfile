@@ -1,7 +1,9 @@
 import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
 import { Suspense } from 'react'
-import { TanStackRouterDevtools } from '../components/TanstackRouterDevTools'
+
 import { TanStackQueryDevtools } from '../components/TanStackQueryDevTools'
+import { TanStackRouterDevtools } from '../components/TanstackRouterDevTools'
+
 
 export const Route = createRootRoute({
   component: () => (

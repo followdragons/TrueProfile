@@ -1,9 +1,11 @@
+import { Address, toNano } from "@ton/core";
 import { useEffect, useState } from "react";
-import { SimpleCounter } from "../contracts/SimpleCounter/tact_SimpleCounter.ts";
+
+import { useTonClient } from "~/context/TonClient.tsx";
+import { SimpleCounter } from "~/contracts/SimpleCounter/tact_SimpleCounter.ts";
+
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import { useTonConnect } from "./useTonConnect.ts";
-import { toNano, Address } from "@ton/core";
-import { useTonClient } from "../context/TonClient.tsx";
 
 const sleep = (time: number) =>
   new Promise((resolve) => setTimeout(resolve, time));
@@ -31,11 +33,15 @@ export function useMainContract() {
     async function getValue() {
       if (!mainContract) return;
       const val = await mainContract.getCounter();
-      if (Number(val) !== contractData?.val) {
-        setContractData({
-          val: Number(val),
-        });
-      }
+
+      setContractData((prevContract) => {
+        const newValue = Number(val);
+        if (prevContract.val === newValue) return prevContract
+        return {
+          val: newValue,
+        }
+      });
+
       await sleep(5000);
       getValue();
     }

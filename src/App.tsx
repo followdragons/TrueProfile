@@ -1,13 +1,14 @@
-import { RouterProvider, createRouter } from '@tanstack/react-router'
 import './App.css'
+
+import { QueryClientProvider } from '@tanstack/react-query'
+import { createRouter,RouterProvider } from '@tanstack/react-router'
 import { TonConnectUIProvider } from '@tonconnect/ui-react'
 
+import { TonClientProvider } from './context/TonClient'
+import { env } from './env'
+import { queryClient } from './libs/queries/queryClient'
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
-import { env } from './env'
-import { TonClientProvider } from './context/TonClient'
-import { QueryClientProvider } from '@tanstack/react-query'
-import { queryClient } from './libs/queries/queryClient'
 
 // Create a new router instance
 const router = createRouter({ routeTree })

@@ -1,5 +1,5 @@
-import { useMainContract } from "../../../hooks/useMainContract.ts";
-import { useTonConnect } from "../../../hooks/useTonConnect.ts";
+import { useMainContract } from "~/hooks/useMainContract";
+import { useTonConnect } from "~/hooks/useTonConnect";
 
 export const Counter = () => {
   const { val, sendIncrement } = useMainContract();

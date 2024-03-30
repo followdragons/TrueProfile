@@ -1,8 +1,9 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
-import { Address } from '../components/Ton/Address/Address'
-import { Wallet } from '../components/Ton/Wallet/Wallet'
 import { TonConnectButton } from '@tonconnect/ui-react'
-import { Counter } from '../components/Ton/Counter/Counter'
+
+import { Address } from '~/components/Ton/Address/Address'
+import { Counter } from '~/components/Ton/Counter/Counter'
+import { Wallet } from '~/components/Ton/Wallet/Wallet'
 
 export const Route = createLazyFileRoute('/')({
   component: Index,
