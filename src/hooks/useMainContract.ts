@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { SimpleCounter } from "../contracts/SimpleCounter/tact_SimpleCounter.ts";
-import { useTonClient } from "./useTonClient";
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import { useTonConnect } from "./useTonConnect.ts";
 import { toNano, Address } from "@ton/core";
+import { useTonClient } from "../context/TonClient.tsx";
 
 const sleep = (time: number) =>
   new Promise((resolve) => setTimeout(resolve, time));
+
 export function useMainContract() {
   const { sender } = useTonConnect();
   const client = useTonClient();
+
   const [contractData, setContractData] = useState<null | {
     val: number;
   }>({ val: 0 });
