@@ -36,7 +36,7 @@ export function useMainContract() {
 
       setContractData((prevContract) => {
         const newValue = Number(val);
-        const newBalance = fromNano(balance);
+        const newBalance = Number(fromNano(balance));
 
         if (
           prevContract.val === newValue &&
