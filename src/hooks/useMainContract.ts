@@ -1,4 +1,4 @@
-import { Address, toNano } from "@ton/core";
+import { Address, fromNano, toNano } from "@ton/core";
 import { useEffect, useState } from "react";
 
 import { useTonClient } from "~/context/TonClient.tsx";
@@ -36,7 +36,7 @@ export function useMainContract() {
 
       setContractData((prevContract) => {
         const newValue = Number(val);
-        const newBalance = Number(balance);
+        const newBalance = fromNano(balance);
 
         if (
           prevContract.val === newValue &&
