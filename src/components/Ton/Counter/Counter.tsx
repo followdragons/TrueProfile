@@ -5,7 +5,7 @@ export const Counter = () => {
   const { val, balance, sendIncrement, sendTon, withdrawTon } =
     useMainContract();
   const { connected } = useTonConnect();
-  console.log(val, "val");
+
   return (
     <>
       {connected && (
