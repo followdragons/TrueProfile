@@ -586,6 +586,15 @@
   resolved "https://registry.yarnpkg.com/@t3-oss/env-core/-/env-core-0.9.2.tgz#4e45c23dc7d2491b8acc0791ed6092026be56fbd"
   integrity sha512-KgWXljUTHgO3o7GMZQPAD5+P+HqpauMNNHowlm7V2b9IeMitSUpNKwG6xQrup/xARWHTdxRVIl0mSI4wCevQhQ==
 
+"@tact-lang/emulator@^4.2.3":
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/@tact-lang/emulator/-/emulator-4.2.3.tgz#a08216fb545b1d3e2da4cf47d6b4cc2293fd8b5b"
+  integrity sha512-uZF5cQUReToHNntiZjxP/Fc2kSO5lpO+rctuq/vFuGtpY/vdXVeT9pt8MpDgrWu6sR9emxjMDJUkRyEI0F4ROA==
+  dependencies:
+    prando "^6.0.1"
+    teslabot "^1.5.0"
+    zod "^3.20.2"
+
 "@tanstack/history@1.22.8":
   version "1.22.8"
   resolved "https://registry.yarnpkg.com/@tanstack/history/-/history-1.22.8.tgz#9e78a5fb47ecd7fb2fccad563583cb107d283b87"
@@ -2718,6 +2727,11 @@ postcss@^8.4.23, postcss@^8.4.27, postcss@^8.4.38:
     picocolors "^1.0.0"
     source-map-js "^1.2.0"
 
+prando@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/prando/-/prando-6.0.1.tgz#ffa8de84c2adc4975dd9df37ae4ada0458face53"
+  integrity sha512-ghUWxQ1T9IJmPu6eshc3VU0OwveUtXQ33ZLXYUcz1Oc5ppKLDXKp0TBDj6b0epwhEctzcQSNGR2iHyvQSn4W5A==
+
 prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
@@ -3137,7 +3151,7 @@ tailwindcss@^3.4.3:
     resolve "^1.22.2"
     sucrase "^3.32.0"
 
-teslabot@^1.3.0:
+teslabot@^1.3.0, teslabot@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/teslabot/-/teslabot-1.5.0.tgz#70f544516699ca5f696d8ae94f3d12cd495d5cd6"
   integrity sha512-e2MmELhCgrgZEGo7PQu/6bmYG36IDH+YrBI1iGm6jovXkeDIGa3pZ2WSqRjzkuw2vt1EqfkZoV5GpXgqL8QJVg==
@@ -3189,6 +3203,11 @@ to-regex-range@^5.0.1:
   integrity sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==
   dependencies:
     is-number "^7.0.0"
+
+ton-abi@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/ton-abi/-/ton-abi-0.0.2.tgz#57e624e2ce319eb65b5eeb1972ea5dfb88736738"
+  integrity sha512-RDlSNDFgC8K+aavCMO8w+AsRFK7RvKldbVpfk4neQrDLpn8DtUbDeHp0p9xoL2PhVNe6wUws8qonngzMbNLjHg==
 
 tr46@~0.0.3:
   version "0.0.3"
@@ -3413,7 +3432,7 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-zod@^3.21.4, zod@^3.22.4:
+zod@^3.20.2, zod@^3.21.4, zod@^3.22.4:
   version "3.22.4"
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.22.4.tgz#f31c3a9386f61b1f228af56faa9255e845cf3fff"
   integrity sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==

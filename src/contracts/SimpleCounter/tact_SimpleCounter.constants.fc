@@ -1,0 +1,2 @@
+;; Comment "Hello from Tact!"
+cell __gen_cell_comment_7d5de4b320891379f1fc7f718dd7a10de03f18bc98a42ead8f20a06524866d50() asm "B{b5ee9c724101010100160000280000000048656c6c6f2066726f6d205461637421c4fc208b} B>boc PUSHREF";

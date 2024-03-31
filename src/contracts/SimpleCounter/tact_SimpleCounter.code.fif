@@ -1,5 +1,6 @@
 PROGRAM{
   DECLPROC __tact_verify_address
+  DECLPROC __tact_load_address
   DECLPROC __tact_store_address
   DECLPROC __tact_my_balance
   DECLPROC __tact_not_null
@@ -10,9 +11,11 @@ PROGRAM{
   DECLPROC $DeployOk$_store
   DECLPROC $DeployOk$_store_cell
   DECLPROC $Add$_load
+  DECLPROC $Withdraw$_load
   DECLPROC $SimpleCounter$_store
   DECLPROC $SimpleCounter$_load
   DECLPROC $StateInit$_not_null
+  DECLPROC $Context$_get_value
   DECLPROC $SimpleCounter$init$_load
   DECLPROC $SimpleCounter$_contract_init
   DECLPROC $SimpleCounter$_contract_load
@@ -20,14 +23,24 @@ PROGRAM{
   DECLPROC $global_send
   DECLPROC $SimpleCounter$_fun_counter
   DECLPROC $SimpleCounter$_fun_id
+  DECLPROC $SimpleCounter$_fun_balance
+  DECLPROC $SimpleCounter$_fun_val
   DECLPROC $SendParameters$_constructor_bounce_to_value_mode_body_code_data
   DECLPROC $SimpleCounter$_fun_forward
   DECLPROC $SimpleCounter$_fun_notify
+  DECLPROC $SendParameters$_constructor_to_value_mode_body
+  DECLPROC $SendParameters$_constructor_to_bounce_value_mode
   DECLPROC $DeployOk$_constructor_queryId
+  DECLPROC %$SimpleCounter$_internal_empty
+  DECLPROC $SimpleCounter$_internal_text_5092b5dce0715a57dd969f5fb5a6f93025a0b02eab329470ca2b365ca0d7e93a
+  DECLPROC $SimpleCounter$_internal_binary_Withdraw
+  DECLPROC $SimpleCounter$_internal_text_c4f8d72312edfdef5b7bec7833bdbb162d1511bd78a912aed0f2637af65572ae
   DECLPROC $SimpleCounter$_internal_binary_Add
   DECLPROC $SimpleCounter$_internal_binary_Deploy
   104984 DECLMETHOD %counter
   105872 DECLMETHOD %id
+  104128 DECLMETHOD %balance
+  130969 DECLMETHOD %val
   113617 DECLMETHOD supported_interfaces
   121275 DECLMETHOD get_abi_ipfs
   115390 DECLMETHOD lazy_deployment_completed
@@ -52,6 +65,11 @@ PROGRAM{
     10 PUSHPOW2
     EQUAL
     136 THROWIFNOT
+  }>
+  __tact_load_address PROCINLINE:<{
+    LDMSGADDR
+    SWAP
+    __tact_verify_address INLINECALLDICT
   }>
   __tact_store_address PROCINLINE:<{
     __tact_verify_address INLINECALLDICT
@@ -108,21 +126,40 @@ PROGRAM{
     32 LDU
     -ROT
   }>
+  $Withdraw$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    195467089 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    LDGRAMS
+    SWAP
+  }>
   $SimpleCounter$_store PROCINLINE:<{
-    s0 s2 XCHG
+    s4 s3 XCHG2
+    __tact_store_address INLINECALLDICT
     32 STU
+    s1 s2 XCHG
     32 STU
+    64 STI
   }>
   $SimpleCounter$_load PROCINLINE:<{
+    __tact_load_address INLINECALLDICT
+    SWAP
     32 LDU
     32 LDU
-    -ROT
+    64 LDI
+    4 -ROLL
   }>
   $StateInit$_not_null PROCINLINE:<{
     DUP
     ISNULL
     128 THROWIF
     2 UNTUPLE
+  }>
+  $Context$_get_value PROCINLINE:<{
+    s1 s3 XCHG
+    3 BLKDROP
   }>
   $SimpleCounter$init$_load PROCINLINE:<{
     257 PUSHINT
@@ -131,6 +168,9 @@ PROGRAM{
   }>
   $SimpleCounter$_contract_init PROCREF:<{
     0 PUSHINT
+    DUP
+    __tact_context_get_sender INLINECALLDICT
+    3 -ROLL
   }>
   $SimpleCounter$_contract_load PROCREF:<{
     c4 PUSH
@@ -142,7 +182,7 @@ PROGRAM{
     SWAP
     IFJMP:<{
       $SimpleCounter$_load INLINECALLDICT
-      1 2 BLKDROP2
+      1 4 BLKDROP2
     }>
     MYADDR
     11 PLDU
@@ -162,7 +202,7 @@ PROGRAM{
     TRUE
     SWAP
     1 STI
-    -ROT
+    4 -ROLL
     $SimpleCounter$_store INLINECALLDICT
     ENDC
     c4 POP
@@ -270,10 +310,16 @@ PROGRAM{
     SENDRAWMSG
   }>
   $SimpleCounter$_fun_counter PROCREF:<{
-    DUP
+    OVER
   }>
   $SimpleCounter$_fun_id PROCREF:<{
-    OVER
+    s2 PUSH
+  }>
+  $SimpleCounter$_fun_balance PROCREF:<{
+    __tact_my_balance INLINECALLDICT
+  }>
+  $SimpleCounter$_fun_val PROCREF:<{
+    DUP
   }>
   $SendParameters$_constructor_bounce_to_value_mode_body_code_data PROCINLINE:<{
   }>
@@ -306,11 +352,62 @@ PROGRAM{
     PUSHNULL
     $SimpleCounter$_fun_forward INLINECALLDICT
   }>
+  $SendParameters$_constructor_to_value_mode_body PROCINLINE:<{
+    TRUE
+    4 -ROLL
+    PUSHNULL
+    PUSHNULL
+  }>
+  $SendParameters$_constructor_to_bounce_value_mode PROCINLINE:<{
+    s2 s3 XCHG
+    PUSHNULL
+    PUSHNULL
+    PUSHNULL
+  }>
   $DeployOk$_constructor_queryId PROCINLINE:<{
+  }>
+  %$SimpleCounter$_internal_empty PROCINLINE:<{
+    __tact_context_get INLINECALLDICT
+    $Context$_get_value INLINECALLDICT
+    ADD
+  }>
+  $SimpleCounter$_internal_text_5092b5dce0715a57dd969f5fb5a6f93025a0b02eab329470ca2b365ca0d7e93a PROCINLINE:<{
+    __tact_context_get_sender INLINECALLDICT
+    0 PUSHINT
+    7 PUSHPOW2
+    B{b5ee9c724101010100160000280000000048656c6c6f2066726f6d205461637421c4fc208b} B>boc PUSHREF
+    $SendParameters$_constructor_to_value_mode_body INLINECALLDICT
+    $global_send INLINECALLDICT
+  }>
+  $SimpleCounter$_internal_binary_Withdraw PROCINLINE:<{
+    __tact_my_balance INLINECALLDICT
+    __tact_context_get INLINECALLDICT
+    $Context$_get_value INLINECALLDICT
+    SUB
+    10000000 PUSHINT
+    SUB
+    MIN
+    54615 PUSHINT
+    OVER
+    0 GTINT
+    THROWANYIFNOT
+    __tact_context_get_sender INLINECALLDICT
+    TRUE
+    ROT
+    66 PUSHINT
+    $SendParameters$_constructor_to_bounce_value_mode INLINECALLDICT
+    $global_send INLINECALLDICT
+  }>
+  $SimpleCounter$_internal_text_c4f8d72312edfdef5b7bec7833bdbb162d1511bd78a912aed0f2637af65572ae PROCINLINE:<{
+    __tact_context_get INLINECALLDICT
+    $Context$_get_value INLINECALLDICT
+    ADD
   }>
   $SimpleCounter$_internal_binary_Add PROCINLINE:<{
     NIP
+    s1 s2 XCHG
     ADD
+    SWAP
   }>
   $SimpleCounter$_internal_binary_Deploy PROCINLINE:<{
     $DeployOk$_constructor_queryId INLINECALLDICT
@@ -320,12 +417,22 @@ PROGRAM{
   %counter PROC:<{
     $SimpleCounter$_contract_load INLINECALLDICT
     $SimpleCounter$_fun_counter INLINECALLDICT
-    2 1 BLKDROP2
+    4 1 BLKDROP2
   }>
   %id PROC:<{
     $SimpleCounter$_contract_load INLINECALLDICT
     $SimpleCounter$_fun_id INLINECALLDICT
-    2 1 BLKDROP2
+    4 1 BLKDROP2
+  }>
+  %balance PROC:<{
+    $SimpleCounter$_contract_load INLINECALLDICT
+    $SimpleCounter$_fun_balance INLINECALLDICT
+    4 1 BLKDROP2
+  }>
+  %val PROC:<{
+    $SimpleCounter$_contract_load INLINECALLDICT
+    $SimpleCounter$_fun_val INLINECALLDICT
+    4 1 BLKDROP2
   }>
   supported_interfaces PROC:<{
     123515602279859691144772641439386770278 PUSHINT
@@ -334,7 +441,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d546a434c38464853525871774841367672314e4e5744625a72764a627569414854517a577141414878786666} PUSHSLICE
+    x{697066733a2f2f516d6164596e3753414a38647a32615633574d325946566f447477574d446d563736666a36754164335444624867} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH
@@ -343,6 +450,8 @@ PROGRAM{
     SWAP
   }>
   $SimpleCounter$_contract_router_internal PROCREF:<{
+    c2 SAVE
+    SAMEALTSAVE
     SWAP
     IFJMP:<{
       DROP
@@ -358,6 +467,27 @@ PROGRAM{
       32 PLDU
     }>
     DUP
+    0 EQINT
+    s2 PUSH
+    SBITS
+    33 LESSINT
+    AND
+    IFJMP:<{
+      2DROP
+      %$SimpleCounter$_internal_empty INLINECALLDICT
+      TRUE
+    }>
+    DUP
+    195467089 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $Withdraw$_load INLINECALLDICT
+      NIP
+      $SimpleCounter$_internal_binary_Withdraw INLINECALLDICT
+      TRUE
+    }>
+    DUP
     2335447074 PUSHINT
     EQUAL
     IFJMP:<{
@@ -367,15 +497,38 @@ PROGRAM{
       $SimpleCounter$_internal_binary_Add INLINECALLDICT
       TRUE
     }>
+    DUP
     2490013878 PUSHINT
     EQUAL
     IFJMP:<{
+      DROP
       $Deploy$_load INLINECALLDICT
       NIP
       $SimpleCounter$_internal_binary_Deploy INLINECALLDICT
       TRUE
     }>
-    DROP
+    0 EQINT
+    IF:<{
+      HASHSU
+      DUP
+      36444242729032575060637673953708123039509959040849370188450484212211184560442 PUSHINT
+      EQUAL
+      IFJMP:<{
+        DROP
+        $SimpleCounter$_internal_text_5092b5dce0715a57dd969f5fb5a6f93025a0b02eab329470ca2b365ca0d7e93a INLINECALLDICT
+        TRUE
+        RETALT
+      }>
+      89092981215441470209245890604563109773385607357076622359718516871332286001838 PUSHINT
+      EQUAL
+      IFJMP:<{
+        $SimpleCounter$_internal_text_c4f8d72312edfdef5b7bec7833bdbb162d1511bd78a912aed0f2637af65572ae INLINECALLDICT
+        TRUE
+        RETALT
+      }>
+    }>ELSE<{
+      DROP
+    }>
     FALSE
   }>
   recv_internal PROC:<{
@@ -397,7 +550,7 @@ PROGRAM{
     s0 s2 XCHG
     __tact_context_sender SETGLOB
     $SimpleCounter$_contract_load INLINECALLDICT
-    2SWAP
+    2 4 BLKSWAP
     $SimpleCounter$_contract_router_internal INLINECALLDICT
     130 THROWIFNOT
     $SimpleCounter$_contract_store INLINECALLDICT

@@ -1,9 +1,9 @@
 # TACT Compilation Report
 Contract: SimpleCounter
-BOC Size: 678 bytes
+BOC Size: 1043 bytes
 
 # Types
-Total Types: 7
+Total Types: 8
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -33,12 +33,20 @@ Signature: `FactoryDeploy{queryId:uint64,cashback:address}`
 TLB: `add#8b341822 queryId:uint64 amount:uint32 = Add`
 Signature: `Add{queryId:uint64,amount:uint32}`
 
+## Withdraw
+TLB: `withdraw#0ba69751 amount:coins = Withdraw`
+Signature: `Withdraw{amount:coins}`
+
 # Get Methods
-Total Get Methods: 2
+Total Get Methods: 4
 
 ## counter
 
 ## id
+
+## balance
+
+## val
 
 # Error Codes
 2: Stack undeflow
@@ -65,3 +73,4 @@ Total Get Methods: 2
 135: Code of a contract was not found
 136: Invalid address
 137: Masterchain support is not enabled for this contract
+54615: Insufficient balance

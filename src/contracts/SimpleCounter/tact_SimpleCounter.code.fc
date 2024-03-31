@@ -4,45 +4,85 @@
 
 #include "tact_SimpleCounter.headers.fc";
 #include "tact_SimpleCounter.stdlib.fc";
+#include "tact_SimpleCounter.constants.fc";
 #include "tact_SimpleCounter.storage.fc";
 
 ;;
 ;; Contract SimpleCounter functions
 ;;
 
-(int, int) $SimpleCounter$_contract_init(int $id) impure inline_ref {
-    var (($self'id, $self'counter)) = (null(), null());
+(slice, int, int, int) $SimpleCounter$_contract_init(int $id) impure inline_ref {
+    var (($self'deployer, $self'id, $self'counter, $self'val)) = (null(), null(), null(), null());
     $self'id = $id;
     $self'counter = 0;
-    return ($self'id, $self'counter);
+    $self'val = 0;
+    $self'deployer = __tact_context_get_sender();
+    return ($self'deployer, $self'id, $self'counter, $self'val);
 }
 
-((int, int), int) $SimpleCounter$_fun_counter((int, int) $self) impure inline_ref {
-    var (($self'id, $self'counter)) = $self;
-    return (($self'id, $self'counter), $self'counter);
+((slice, int, int, int), int) $SimpleCounter$_fun_counter((slice, int, int, int) $self) impure inline_ref {
+    var (($self'deployer, $self'id, $self'counter, $self'val)) = $self;
+    return (($self'deployer, $self'id, $self'counter, $self'val), $self'counter);
 }
 
-((int, int), int) $SimpleCounter$_fun_id((int, int) $self) impure inline_ref {
-    var (($self'id, $self'counter)) = $self;
-    return (($self'id, $self'counter), $self'id);
+((slice, int, int, int), int) $SimpleCounter$_fun_id((slice, int, int, int) $self) impure inline_ref {
+    var (($self'deployer, $self'id, $self'counter, $self'val)) = $self;
+    return (($self'deployer, $self'id, $self'counter, $self'val), $self'id);
+}
+
+((slice, int, int, int), int) $SimpleCounter$_fun_balance((slice, int, int, int) $self) impure inline_ref {
+    var (($self'deployer, $self'id, $self'counter, $self'val)) = $self;
+    return (($self'deployer, $self'id, $self'counter, $self'val), __tact_my_balance());
+}
+
+((slice, int, int, int), int) $SimpleCounter$_fun_val((slice, int, int, int) $self) impure inline_ref {
+    var (($self'deployer, $self'id, $self'counter, $self'val)) = $self;
+    return (($self'deployer, $self'id, $self'counter, $self'val), $self'val);
 }
 
 ;;
 ;; Receivers of a Contract SimpleCounter
 ;;
 
-(((int, int)), ()) $SimpleCounter$_internal_binary_Add((int, int) $self, (int, int) $msg) impure inline {
-    var ($self'id, $self'counter) = $self;
-    var ($msg'queryId, $msg'amount) = $msg;
-    $self'counter = $self'counter + $msg'amount;
-    return (($self'id, $self'counter), ());
+(((slice, int, int, int)), ()) %$SimpleCounter$_internal_empty((slice, int, int, int) $self) impure inline {
+    var ($self'deployer, $self'id, $self'counter, $self'val) = $self;
+    $self'val = ($self'val + $Context$_get_value(__tact_context_get()));
+    return (($self'deployer, $self'id, $self'counter, $self'val), ());
 }
 
-(((int, int)), ()) $SimpleCounter$_internal_binary_Deploy((int, int) $self, (int) $deploy) impure inline {
-    var ($self'id, $self'counter) = $self;
+((slice, int, int, int), ()) $SimpleCounter$_internal_text_5092b5dce0715a57dd969f5fb5a6f93025a0b02eab329470ca2b365ca0d7e93a((slice, int, int, int) $self) impure inline {
+    var ($self'deployer, $self'id, $self'counter, $self'val) = $self;
+    $global_send($SendParameters$_constructor_to_value_mode_body(__tact_context_get_sender(), 0, 128, __gen_cell_comment_7d5de4b320891379f1fc7f718dd7a10de03f18bc98a42ead8f20a06524866d50()));
+    return (($self'deployer, $self'id, $self'counter, $self'val), ());
+}
+
+(((slice, int, int, int)), ()) $SimpleCounter$_internal_binary_Withdraw((slice, int, int, int) $self, (int) $msg) impure inline {
+    var ($self'deployer, $self'id, $self'counter, $self'val) = $self;
+    var ($msg'amount) = $msg;
+    int $amount = min($msg'amount, ((__tact_my_balance() - $Context$_get_value(__tact_context_get())) - 10000000));
+    throw_unless(54615, ($amount > 0));
+    $global_send($SendParameters$_constructor_to_bounce_value_mode(__tact_context_get_sender(), true, $amount, (64 + 2)));
+    return (($self'deployer, $self'id, $self'counter, $self'val), ());
+}
+
+((slice, int, int, int), ()) $SimpleCounter$_internal_text_c4f8d72312edfdef5b7bec7833bdbb162d1511bd78a912aed0f2637af65572ae((slice, int, int, int) $self) impure inline {
+    var ($self'deployer, $self'id, $self'counter, $self'val) = $self;
+    $self'val = ($self'val + $Context$_get_value(__tact_context_get()));
+    return (($self'deployer, $self'id, $self'counter, $self'val), ());
+}
+
+(((slice, int, int, int)), ()) $SimpleCounter$_internal_binary_Add((slice, int, int, int) $self, (int, int) $msg) impure inline {
+    var ($self'deployer, $self'id, $self'counter, $self'val) = $self;
+    var ($msg'queryId, $msg'amount) = $msg;
+    $self'counter = $self'counter + $msg'amount;
+    return (($self'deployer, $self'id, $self'counter, $self'val), ());
+}
+
+(((slice, int, int, int)), ()) $SimpleCounter$_internal_binary_Deploy((slice, int, int, int) $self, (int) $deploy) impure inline {
+    var ($self'deployer, $self'id, $self'counter, $self'val) = $self;
     var ($deploy'queryId) = $deploy;
-    ($self'id, $self'counter)~$SimpleCounter$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
-    return (($self'id, $self'counter), ());
+    ($self'deployer, $self'id, $self'counter, $self'val)~$SimpleCounter$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
+    return (($self'deployer, $self'id, $self'counter, $self'val), ());
 }
 
 ;;
@@ -61,6 +101,18 @@ _ %id() method_id(105872) {
     return res;
 }
 
+_ %balance() method_id(104128) {
+    var self = $SimpleCounter$_contract_load();
+    var res = self~$SimpleCounter$_fun_balance();
+    return res;
+}
+
+_ %val() method_id(130969) {
+    var self = $SimpleCounter$_contract_load();
+    var res = self~$SimpleCounter$_fun_val();
+    return res;
+}
+
 _ supported_interfaces() method_id {
     return (
         "org.ton.introspection.v0"H >> 128,
@@ -71,7 +123,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() method_id {
-    return "ipfs://QmTjCL8FHSRXqwHA6vr1NNWDbZrvJbuiAHTQzWqAAHxxff";
+    return "ipfs://QmadYn7SAJ8dz2aV3WM2YFVoDtwWMDmV76fj6uAd3TDbHg";
 }
 
 _ lazy_deployment_completed() method_id {
@@ -82,7 +134,7 @@ _ lazy_deployment_completed() method_id {
 ;; Routing of a Contract SimpleCounter
 ;;
 
-((int, int), int) $SimpleCounter$_contract_router_internal((int, int) self, int msg_bounced, slice in_msg) impure inline_ref {
+((slice, int, int, int), int) $SimpleCounter$_contract_router_internal((slice, int, int, int) self, int msg_bounced, slice in_msg) impure inline_ref {
     ;; Handle bounced messages
     if (msg_bounced) {
         return (self, true);
@@ -94,6 +146,19 @@ _ lazy_deployment_completed() method_id {
         op = in_msg.preload_uint(32);
     }
     
+    
+    ;; Receive empty message
+    if ((op == 0) & (slice_bits(in_msg) <= 32)) {
+        self~%$SimpleCounter$_internal_empty();
+        return (self, true);
+    }
+    
+    ;; Receive Withdraw message
+    if (op == 195467089) {
+        var msg = in_msg~$Withdraw$_load();
+        self~$SimpleCounter$_internal_binary_Withdraw(msg);
+        return (self, true);
+    }
     
     ;; Receive Add message
     if (op == 2335447074) {
@@ -107,6 +172,23 @@ _ lazy_deployment_completed() method_id {
         var msg = in_msg~$Deploy$_load();
         self~$SimpleCounter$_internal_binary_Deploy(msg);
         return (self, true);
+    }
+    
+    ;; Text Receivers
+    if (op == 0) {
+        var text_op = slice_hash(in_msg);
+        
+        ;; Receive "withdraw all" message
+        if (text_op == 0x5092b5dce0715a57dd969f5fb5a6f93025a0b02eab329470ca2b365ca0d7e93a) {
+            self~$SimpleCounter$_internal_text_5092b5dce0715a57dd969f5fb5a6f93025a0b02eab329470ca2b365ca0d7e93a();
+            return (self, true);
+        }
+        
+        ;; Receive "increment" message
+        if (text_op == 0xc4f8d72312edfdef5b7bec7833bdbb162d1511bd78a912aed0f2637af65572ae) {
+            self~$SimpleCounter$_internal_text_c4f8d72312edfdef5b7bec7833bdbb162d1511bd78a912aed0f2637af65572ae();
+            return (self, true);
+        }
     }
     
     return (self, false);

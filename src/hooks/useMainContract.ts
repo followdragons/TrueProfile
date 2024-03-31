@@ -16,30 +16,37 @@ export function useMainContract() {
 
   const [contractData, setContractData] = useState<null | {
     val: number;
-  }>({ val: 0 });
+    balance: number;
+  }>({ val: 0, balance: 0 });
 
   const mainContract = useAsyncInitialize(async () => {
     if (!client) return;
     const contract = SimpleCounter.fromAddress(
-      Address.parse("EQBpAfN92UwASDxc5Q-pJQdjjBpwc9KwtpY6BxiGI_xfW-Lk"),
+      Address.parse("EQBk322k_JmXaPmXEfS3GV4k7jcBPJt7mBv8QVyBODy5JJwb"),
     );
 
-    return client.open(
-      contract,
-    );
+    return client.open(contract);
   }, [client]);
 
   useEffect(() => {
     async function getValue() {
       if (!mainContract) return;
       const val = await mainContract.getCounter();
+      const balance = await mainContract?.getBalance();
 
       setContractData((prevContract) => {
         const newValue = Number(val);
-        if (prevContract.val === newValue) return prevContract
+        const newBalance = Number(balance);
+
+        if (
+          prevContract.val === newValue &&
+          prevContract.balance === newBalance
+        )
+          return prevContract;
         return {
           val: newValue,
-        }
+          balance: newBalance,
+        };
       });
 
       await sleep(5000);
@@ -51,6 +58,27 @@ export function useMainContract() {
   return {
     contract_address: mainContract?.address.toString(),
     ...contractData,
+    withdrawTon: async () => {
+      return mainContract?.send(
+        sender,
+        {
+          value: toNano("0.05"),
+        },
+        {
+          $$type: "Withdraw",
+          amount: await mainContract?.getBalance(),
+        },
+      );
+    },
+    sendTon: () => {
+      return mainContract?.send(
+        sender,
+        {
+          value: toNano("1"),
+        },
+        null,
+      );
+    },
     sendIncrement: () => {
       const increaseBy = BigInt(Math.floor(Math.random() * 100));
       return mainContract?.send(
