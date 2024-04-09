@@ -1,7 +1,5 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
-import { Button, DatePickerProps } from "antd";
-import { DatePicker } from "antd";
-import dayjs from "dayjs";
+import { Button } from "antd";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 // import { TonConnectButton } from '@tonconnect/ui-react'
@@ -41,19 +39,21 @@ const TOKENS = [
   },
 ];
 
-const INVESTMENT_AMOUNT = [50, 100, 300, 500, 800, 1000];
+const INVESTMENT_AMOUNT = [
+  { amount: 50, className: "text-emerald-50" },
+  { amount: 100, className: "text-emerald-100" },
+  { amount: 300, className: "text-emerald-200" },
+  { amount: 500, className: "text-emerald-300" },
+  { amount: 800, className: "text-emerald-400" },
+  { amount: 1000, className: "text-emerald-500" },
+];
 const INVESTMENT_PERIOD = ["day", "week", "month"];
 
 function Index() {
   const [token, setToken] = useState("");
   const [amount, setAmount] = useState(0);
   const [period, setPeriod] = useState(INVESTMENT_PERIOD[1]);
-  const [date, setDate] = useState(dayjs("2022-01-01"));
-
-  const onChange: DatePickerProps["onChange"] = (date, dateString) => {
-    console.log(date, dateString);
-    setDate(date);
-  };
+  const [date, setDate] = useState("2022-01-01");
 
   return (
     <>
@@ -61,7 +61,7 @@ function Index() {
         {amount ? (
           <div className="gap-10 flex flex-col">
             <div className="text-blue-500 text-center">Period:</div>
-            <div className="flex flex-wrap gap-10">
+            <div className="flex flex-wrap gap-10 m-auto">
               {INVESTMENT_PERIOD.map((investmentPeriod) => (
                 <div
                   onClick={() => setPeriod(investmentPeriod)}
@@ -76,13 +76,11 @@ function Index() {
             </div>
             <div className="text-center flex flex-col gap-5">
               <div className="text-2xl text-amber-400">Starting from:</div>
-              <DatePicker
-                allowClear={false}
+              <input
+                type="date"
                 value={date}
-                size="large"
-                variant="outlined"
-                className="w-full"
-                onChange={onChange}
+                className="w-full p-5"
+                onChange={({ target: { value } }) => setDate(value)}
               />
             </div>
           </div>
@@ -91,15 +89,17 @@ function Index() {
           <div className="m-auto text-center gap-10 flex flex-col">
             <div className="">Investment amount:</div>
             <div className="flex flex-wrap gap-8 p-4">
-              {INVESTMENT_AMOUNT.map((investmentAmount, index) => (
-                <div
-                  className={`text-emerald-${index > 0 ? index * 100 : 50}`}
-                  key={investmentAmount}
-                  onClick={() => setAmount(investmentAmount)}
-                >
-                  {investmentAmount} $
-                </div>
-              ))}
+              {INVESTMENT_AMOUNT.map(
+                ({ amount: investmentAmount, className }) => (
+                  <div
+                    className={className}
+                    key={investmentAmount}
+                    onClick={() => setAmount(investmentAmount)}
+                  >
+                    {investmentAmount} $
+                  </div>
+                ),
+              )}
             </div>
           </div>
         ) : null}
