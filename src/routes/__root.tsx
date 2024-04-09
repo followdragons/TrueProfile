@@ -1,8 +1,12 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
+import WebApp from "@twa-dev/sdk";
 import { Suspense } from "react";
 
 import { TanStackQueryDevtools } from "../components/TanStackQueryDevTools";
 import { TanStackRouterDevtools } from "../components/TanstackRouterDevTools";
+
+WebApp.ready();
+WebApp.expand();
 
 export const Route = createRootRoute({
   component: () => (
