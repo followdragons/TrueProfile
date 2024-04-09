@@ -1,12 +1,62 @@
+import { faker } from "@faker-js/faker";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { Button } from "antd";
+import {
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+} from "chart.js";
 import { useState } from "react";
+import { Line } from "react-chartjs-2";
 import { twMerge } from "tailwind-merge";
 // import { TonConnectButton } from '@tonconnect/ui-react'
 //
 // import { Address } from '~/components/Ton/Address/Address'
 // import { Counter } from '~/components/Ton/Counter/Counter'
 // import { Wallet } from '~/components/Ton/Wallet/Wallet'
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+);
+
+export const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top" as const,
+    },
+    title: {
+      display: true,
+      text: "Your profit chart",
+    },
+  },
+};
+
+const labels = ["January", "February", "March", "April", "May", "June", "July"];
+
+export const data = {
+  labels,
+  datasets: [
+    {
+      label: "",
+      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      borderColor: "rgb(255, 99, 132)",
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
+      labels: [],
+    },
+  ],
+};
 
 export const Route = createLazyFileRoute("/")({
   component: Index,
@@ -54,80 +104,90 @@ function Index() {
   const [amount, setAmount] = useState(0);
   const [period, setPeriod] = useState(INVESTMENT_PERIOD[1]);
   const [date, setDate] = useState("2022-01-01");
+  const [showChart, setShowChart] = useState(false);
 
   return (
     <>
-      <div className="text-3xl font-bold gap-5 flex flex-col m-auto">
-        {amount ? (
-          <div className="gap-10 flex flex-col">
-            <div className="text-blue-500 text-center">Period:</div>
-            <div className="flex flex-wrap gap-10 m-auto">
-              {INVESTMENT_PERIOD.map((investmentPeriod) => (
-                <div
-                  onClick={() => setPeriod(investmentPeriod)}
-                  className={twMerge(
-                    "capitalize text-center gap-8 text-2xl",
-                    period === investmentPeriod ? "text-red-400" : null,
+      {showChart ? (
+        <div className="m-auto w-full">
+          <Line options={options} data={data} />
+        </div>
+      ) : (
+        <>
+          <div className="text-3xl font-bold gap-5 flex flex-col m-auto">
+            {amount ? (
+              <div className="gap-10 flex flex-col">
+                <div className="text-blue-500 text-center">Period:</div>
+                <div className="flex flex-wrap gap-10 m-auto">
+                  {INVESTMENT_PERIOD.map((investmentPeriod) => (
+                    <div
+                      onClick={() => setPeriod(investmentPeriod)}
+                      className={twMerge(
+                        "capitalize text-center gap-8 text-2xl",
+                        period === investmentPeriod ? "text-red-400" : null,
+                      )}
+                    >
+                      {investmentPeriod}
+                    </div>
+                  ))}
+                </div>
+                <div className="text-center flex flex-col gap-5">
+                  <div className="text-2xl text-amber-400">Starting from:</div>
+                  <input
+                    type="date"
+                    value={date}
+                    className="w-full p-5"
+                    onChange={({ target: { value } }) => setDate(value)}
+                  />
+                </div>
+              </div>
+            ) : null}
+            {token && !amount ? (
+              <div className="m-auto text-center gap-10 flex flex-col">
+                <div className="">Investment amount:</div>
+                <div className="flex flex-wrap gap-8 p-4">
+                  {INVESTMENT_AMOUNT.map(
+                    ({ amount: investmentAmount, className }) => (
+                      <div
+                        className={className}
+                        key={investmentAmount}
+                        onClick={() => setAmount(investmentAmount)}
+                      >
+                        {investmentAmount} $
+                      </div>
+                    ),
                   )}
-                >
-                  {investmentPeriod}
                 </div>
-              ))}
-            </div>
-            <div className="text-center flex flex-col gap-5">
-              <div className="text-2xl text-amber-400">Starting from:</div>
-              <input
-                type="date"
-                value={date}
-                className="w-full p-5"
-                onChange={({ target: { value } }) => setDate(value)}
-              />
-            </div>
+              </div>
+            ) : null}
+            {!token
+              ? TOKENS.map(({ img, name, symbol }) => {
+                  return (
+                    <div
+                      key={symbol}
+                      onClick={() => setToken(symbol)}
+                      className="flex flex-row items-center gap-10 border-b-2 border-b-blue-300 pb-3"
+                    >
+                      <img src={img} alt="" />
+                      <span>{name}</span>
+                    </div>
+                  );
+                })
+              : null}
           </div>
-        ) : null}
-        {token && !amount ? (
-          <div className="m-auto text-center gap-10 flex flex-col">
-            <div className="">Investment amount:</div>
-            <div className="flex flex-wrap gap-8 p-4">
-              {INVESTMENT_AMOUNT.map(
-                ({ amount: investmentAmount, className }) => (
-                  <div
-                    className={className}
-                    key={investmentAmount}
-                    onClick={() => setAmount(investmentAmount)}
-                  >
-                    {investmentAmount} $
-                  </div>
-                ),
-              )}
-            </div>
-          </div>
-        ) : null}
-        {!token
-          ? TOKENS.map(({ img, name, symbol }) => {
-              return (
-                <div
-                  key={symbol}
-                  onClick={() => setToken(symbol)}
-                  className="flex flex-row items-center gap-10 border-b-2 border-b-blue-300 pb-3"
-                >
-                  <img src={img} alt="" />
-                  <span>{name}</span>
-                </div>
-              );
-            })
-          : null}
-      </div>
-      {amount ? (
-        <Button
-          className="bg-emerald-500 m-auto font-bold"
-          disabled={!date || !period}
-          type="primary"
-          size="large"
-        >
-          Calculate your investment
-        </Button>
-      ) : null}
+          {amount ? (
+            <Button
+              className="bg-emerald-500 m-auto font-bold"
+              disabled={!date || !period}
+              type="primary"
+              size="large"
+              onClick={() => setShowChart(true)}
+            >
+              Calculate your investment
+            </Button>
+          ) : null}
+        </>
+      )}
     </>
     // <div className="p-4">
     //   <Address />
