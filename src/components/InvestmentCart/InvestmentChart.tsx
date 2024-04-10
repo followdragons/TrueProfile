@@ -62,22 +62,24 @@ const formatDateLabel = (dateString) => {
 
 export const InvestmentChart = ({ amount, period }) => {
   console.log({ amount, period });
-  const { data: fetchedData, isLoading } = useQuery({
+  const { data: fetchedData } = useQuery({
     ...queryKeys.investmentChart.all,
   });
 
-  if (isLoading) {
-    return "loading";
-  }
+  const chartData = fetchedData?.chart_data || [
+    {
+      invested_amount: 0,
+      accumulated_amount_usd: 0,
+    },
+  ];
 
-  console.log(fetchedData, "fetchedData");
+  const { currency, amount_usd } = fetchedData?.investment || {
+    currency: "",
+    amount_usd: 0,
+  };
 
-  const labels = fetchedData.chart_data.map((item) =>
-    formatDateLabel(item.date),
-  );
-  const dataPoints = fetchedData.chart_data.map(
-    (item) => item.accumulated_amount_usd,
-  );
+  const labels = chartData.map((item) => formatDateLabel(item.date));
+  const dataPoints = chartData.map((item) => item.accumulated_amount_usd);
 
   // Обновление структуры данных графика
   const data = {
@@ -92,27 +94,23 @@ export const InvestmentChart = ({ amount, period }) => {
     ],
   };
 
-  const lastDay = fetchedData.chart_data[fetchedData.chart_data.length - 1];
-  const pnl = (
-    lastDay.accumulated_amount_usd - lastDay.invested_amount
-  ).toFixed(0);
+  const { accumulated_amount_usd, invested_amount, period_type } =
+    chartData[chartData.length - 1];
+
+  const pnl = (accumulated_amount_usd - invested_amount).toFixed(0);
 
   return (
     <div className="m-auto w-full gap-10 flex flex-col text-center">
       <div className="m-auto">
         <div>
-          Currency:{" "}
-          <strong className="text-blue-500">
-            {fetchedData.investment.currency}
-          </strong>
+          Currency: <strong className="text-blue-500">{currency}</strong>
         </div>
         <div>
-          Investment <strong> {fetchedData.investment.amount_usd} $ </strong>
-          {fetchedData.investment.period_type}
+          Investment <strong> {amount_usd} $ </strong>
+          {period_type}
         </div>
         <div>
-          Invested:{" "}
-          <span className="text-amber-400">{lastDay.invested_amount} $</span>
+          Invested: <span className="text-amber-400">{invested_amount} $</span>
         </div>
       </div>
       <div style={{ height: "300px" }} className="w-full">
@@ -122,7 +120,7 @@ export const InvestmentChart = ({ amount, period }) => {
         <div className={twMerge(+pnl > 0 ? "text-green-400" : "text-red-500")}>
           P&L: <strong>{pnl}</strong> $
         </div>
-        <div>Final value: {lastDay.accumulated_amount_usd.toFixed(0)} $</div>
+        <div>Final value: {accumulated_amount_usd.toFixed(0)} $</div>
       </div>
     </div>
   );
