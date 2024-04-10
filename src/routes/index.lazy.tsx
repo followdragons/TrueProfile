@@ -1,68 +1,14 @@
-import { faker } from "@faker-js/faker";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { Button } from "antd";
-import {
-  CategoryScale,
-  Chart as ChartJS,
-  Legend,
-  LinearScale,
-  LineElement,
-  PointElement,
-  Title,
-  Tooltip,
-} from "chart.js";
 import { useState } from "react";
-import { Line } from "react-chartjs-2";
 import { twMerge } from "tailwind-merge";
+
+import { InvestmentChart } from "~/components/InvestmentCart/InvestmentChart.tsx";
 // import { TonConnectButton } from '@tonconnect/ui-react'
 //
 // import { Address } from '~/components/Ton/Address/Address'
 // import { Counter } from '~/components/Ton/Counter/Counter'
 // import { Wallet } from '~/components/Ton/Wallet/Wallet'
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-);
-
-const options = {
-  responsive: true,
-  maintainAspectRatio: false,
-  scales: {
-    y: {
-      display: false,
-    },
-  },
-  plugins: {
-    legend: {
-      position: "top" as const,
-    },
-    title: {
-      display: true,
-      text: "Your profit chart",
-    },
-  },
-};
-
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
-
-const data = {
-  labels,
-  datasets: [
-    {
-      label: "",
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-      labels: [],
-    },
-  ],
-};
 
 export const Route = createLazyFileRoute("/")({
   component: Index,
@@ -115,9 +61,7 @@ function Index() {
   return (
     <>
       {showChart ? (
-        <div className="m-auto w-full">
-          <Line options={options} data={data} />
-        </div>
+        <InvestmentChart amount={amount} period={period} />
       ) : (
         <>
           <div className="text-3xl font-bold gap-5 flex flex-col m-auto">
