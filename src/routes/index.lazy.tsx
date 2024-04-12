@@ -57,7 +57,7 @@ function Index() {
   const [period, setPeriod] = useState(INVESTMENT_PERIOD[1]);
   const [date, setDate] = useState("2022-01-01");
   const [showChart, setShowChart] = useState(false);
-
+  console.log(window, "window");
   return (
     <>
       {showChart ? (
