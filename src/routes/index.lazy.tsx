@@ -3,6 +3,7 @@ import { Button } from "antd";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 
+import { CurrencyList } from "~/components/CurrencyList/CurrencyList.tsx";
 import { InvestmentChart } from "~/components/InvestmentCart/InvestmentChart.tsx";
 // import { TonConnectButton } from '@tonconnect/ui-react'
 //
@@ -13,33 +14,6 @@ import { InvestmentChart } from "~/components/InvestmentCart/InvestmentChart.tsx
 export const Route = createLazyFileRoute("/")({
   component: Index,
 });
-
-const TOKENS = [
-  {
-    name: "Bitcoin",
-    symbol: "BTC",
-    coingecko_id: "bitcoin",
-    img: "https://assets.coingecko.com/coins/images/1/standard/bitcoin.png?1696501400",
-  },
-  {
-    name: "Ethereum",
-    symbol: "ETH",
-    coingecko_id: "ethereum",
-    img: "https://assets.coingecko.com/coins/images/279/standard/ethereum.png?1696501628",
-  },
-  {
-    name: "BNB",
-    symbol: "BNB",
-    coingecko_id: "bnb",
-    img: "https://assets.coingecko.com/coins/images/825/standard/bnb-icon2_2x.png?1696501970",
-  },
-  {
-    name: "Toncoin",
-    symbol: "TON",
-    coingecko_id: "ton",
-    img: "https://assets.coingecko.com/coins/images/17980/standard/ton_symbol.png?1696517498",
-  },
-];
 
 const INVESTMENT_AMOUNT = [
   { amount: 50, className: "text-emerald-50" },
@@ -57,14 +31,13 @@ function Index() {
   const [period, setPeriod] = useState(INVESTMENT_PERIOD[1]);
   const [date, setDate] = useState("2022-01-01");
   const [showChart, setShowChart] = useState(false);
-  console.log(window, "window");
   return (
     <>
       {showChart ? (
         <InvestmentChart amount={amount} period={period} />
       ) : (
         <>
-          <div className="text-3xl font-bold gap-5 flex flex-col m-auto">
+          <div className="text-3xl font-bold gap-5 flex flex-col m-auto w-full p-2">
             {amount ? (
               <div className="gap-10 flex flex-col">
                 <div className="text-blue-500 text-center">Period:</div>
@@ -110,20 +83,7 @@ function Index() {
                 </div>
               </div>
             ) : null}
-            {!token
-              ? TOKENS.map(({ img, name, symbol }) => {
-                  return (
-                    <div
-                      key={symbol}
-                      onClick={() => setToken(symbol)}
-                      className="flex flex-row items-center gap-10 border-b-2 border-b-blue-300 pb-3"
-                    >
-                      <img src={img} alt="" />
-                      <span>{name}</span>
-                    </div>
-                  );
-                })
-              : null}
+            {!token ? <CurrencyList onChangeToken={setToken} /> : null}
           </div>
           {amount ? (
             <Button
