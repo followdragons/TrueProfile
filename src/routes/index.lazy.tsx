@@ -25,6 +25,9 @@ function Index() {
         height: "100vh",
         padding: "20px",
         color: "black",
+        display: "flex",
+        flexDirection: "column",
+        gap: 20,
       }}
     >
       <div
@@ -49,7 +52,7 @@ function Index() {
             <img src="https://ddejfvww7sqtk.cloudfront.net/nft-content-cache/images/EQAzlVUwnQKBSJeyyP-733Xp44tnZDg_b_dzMqZEO-z58yeC/a81361be9c3f949b_18f0b147236" />
           </div>
           <div>
-            <a>@FollowDragons</a>
+            <a className="text-blue-500">@FollowDragons</a>
             <div>Valrii</div>
           </div>
         </div>
@@ -82,7 +85,66 @@ function Index() {
           </div>
         </div>
       </div>
-      <div></div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          background: "white",
+          borderRadius: "16px",
+          padding: "20px",
+          gap: "20px",
+        }}
+      >
+        <div>Current company</div>
+        <div style={{ display: "flex", gap: 20 }}>
+          <div
+            style={{
+              width: "60px",
+              height: "60px",
+              borderRadius: "50%",
+              overflow: "hidden",
+            }}
+          >
+            <img src="https://ddejfvww7sqtk.cloudfront.net/nft-content-cache/images/EQAzlVUwnQKBSJeyyP-733Xp44tnZDg_b_dzMqZEO-z58yeC/a81361be9c3f949b_18f0b147236" />
+          </div>
+          <div>
+            <div>FollowDragons</div>
+            <a className="text-blue-500">@FollowDragons</a>
+          </div>
+        </div>
+        <div style={{ color: "grey" }}>
+          Worked in <strong>3 others companies</strong>
+        </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          background: "white",
+          borderRadius: "16px",
+          padding: "20px",
+          gap: "20px",
+        }}
+      >
+        <div>Recommendations (165)</div>
+        <div
+          style={{
+            overflowWrap: "break-word",
+            wordBreak: "break-word",
+            height: "140px",
+            background: "#e5e7eb",
+            padding: "10px",
+            borderRadius: 20,
+          }}
+        >
+          <div>
+            <strong>Valery Viarenich[Prom.io]</strong>
+          </div>
+          <span>
+            adsadasdasdasdasdaadsadasdasdasdasdaadsadasdasdasdasdaadsadasdasdasdasdaadsadasdasdasdasdaadsadasdasd
+          </span>
+        </div>
+      </div>
     </div>
   );
 }
