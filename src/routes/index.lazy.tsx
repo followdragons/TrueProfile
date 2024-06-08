@@ -19,7 +19,14 @@ export const Route = createLazyFileRoute("/")({
 
 function Index() {
   return (
-    <div style={{ background: "#e5e7eb", height: "100vh", padding: "20px" }}>
+    <div
+      style={{
+        background: "#e5e7eb",
+        height: "100vh",
+        padding: "20px",
+        color: "black",
+      }}
+    >
       <div
         style={{
           display: "flex",
