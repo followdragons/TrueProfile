@@ -60,7 +60,7 @@ export const UserCard = () => {
             gap: "4px",
           }}
         >
-          <img width={29} height={24} src="/Icon.png" alt="" />
+          <img width={29} height={24} src="Icon.png" alt="" />
           <span style={{ color: "#707579", fontSize: 20, fontWeight: 600 }}>
             134
           </span>
@@ -95,7 +95,7 @@ export const UserCard = () => {
         }}
         onClick={handleFlip}
       >
-        <img height={186} width={186} src="/qr.png" alt="" />
+        <img height={186} width={186} src="qr.png" alt="" />
         <div style={{ fontSize: 13 }}>
           Scan this QR-code to open the Profile of the person:
         </div>
