@@ -1,4 +1,6 @@
-export const Rate = ({ fill = "#707579" }) => {
+export const Rate = ({ active }) => {
+  const fill = active ? "#007AFF" : "#707579";
+  console.log(fill, "fill");
   return (
     <svg width="51" height="37" viewBox="0 0 51 37" fill="none">
       <g clipPath="url(#clip0_5_1403)">
