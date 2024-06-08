@@ -28,6 +28,7 @@ function Index() {
         display: "flex",
         flexDirection: "column",
         gap: 20,
+        overflow: "scroll",
       }}
     >
       <div

@@ -40,8 +40,6 @@ export const Route = createRootRoute({
           padding: 20,
           background: "rgb(229, 231, 235)",
           color: "white",
-          position: "fixed",
-          bottom: 0,
         }}
       >
         <div
