@@ -5,6 +5,10 @@ import { FaSearch } from "react-icons/fa";
 import { GiPodiumWinner } from "react-icons/gi";
 import { ImProfile } from "react-icons/im";
 
+import { Profile } from "~/assets/Profile.tsx";
+import { Rate } from "~/assets/Rate.tsx";
+import { Search } from "~/assets/Search.tsx";
+
 import { TanStackQueryDevtools } from "../components/TanStackQueryDevTools";
 import { TanStackRouterDevtools } from "../components/TanstackRouterDevTools";
 
@@ -32,43 +36,25 @@ export const Route = createRootRoute({
       {/*</Suspense>*/}
       <div
         style={{
+          backgroundColor: "#FFFFFFF2",
+          borderTop: "1px solid #00000026",
           display: "flex",
           alignItems: "center",
           width: "100%",
           justifyContent: "space-around",
-          fontSize: 30,
-          padding: 20,
-          background: "rgb(229, 231, 235)",
-          color: "white",
+          padding: 16,
+          background: "white",
+          height: 107,
         }}
       >
-        <div
-          className="bg-blue-500"
-          style={{
-            padding: "30px",
-            borderRadius: "50%",
-            borderTopLeftRadius: "0px",
-            borderBottomLeftRadius: "0px",
-          }}
-        >
-          <GiPodiumWinner />
+        <div>
+          <Rate />
         </div>
-        <div
-          className="bg-blue-500"
-          style={{ padding: "30px", borderRadius: "50%" }}
-        >
-          <FaSearch />
+        <div>
+          <Search />
         </div>
-        <div
-          className="bg-blue-500"
-          style={{
-            padding: "30px",
-            borderRadius: "50%",
-            borderTopRightRadius: "0px",
-            borderBottomRightRadius: "0px",
-          }}
-        >
-          <ImProfile />
+        <div>
+          <Profile />
         </div>
       </div>
     </div>
