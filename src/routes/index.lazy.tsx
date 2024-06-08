@@ -16,10 +16,11 @@ export const Route = createLazyFileRoute("/")({
   component: Index,
 });
 
-
 function Index() {
-
+  console.log(888);
   return (
-    <div><TonConnectButton /></div>
+    <div>
+      <TonConnectButton />
+    </div>
   );
 }
