@@ -13,6 +13,7 @@ import { ImProfile } from "react-icons/im";
 import { Profile } from "~/assets/Profile.tsx";
 import { Rate } from "~/assets/Rate.tsx";
 import { Search } from "~/assets/Search.tsx";
+import { useTonConnect } from "~/hooks/useTonConnect.ts";
 
 import { TanStackQueryDevtools } from "../components/TanStackQueryDevTools";
 import { TanStackRouterDevtools } from "../components/TanstackRouterDevTools";
@@ -22,6 +23,7 @@ WebApp.expand();
 
 export const Route = createRootRoute({
   component: () => {
+    const { address } = useTonConnect();
     const router = useRouter();
     const isSearch =
       router.history.location.pathname === "/TonRockPaperScissors/";
@@ -33,6 +35,7 @@ export const Route = createRootRoute({
 
     return (
       <div className="flex h-screen w-screen flex-col">
+        {address ? <div>Address: {address}</div> : null}
         {/*<div className="p-2 flex gap-2">*/}
         {/*  <Link to="/" className="[&.active]:font-bold">*/}
         {/*    Home*/}
