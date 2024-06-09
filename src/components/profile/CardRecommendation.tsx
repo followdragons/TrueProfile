@@ -25,10 +25,7 @@ export const CardRecommendation = () => {
               overflow: "hidden",
             }}
           >
-            <img
-              src="https://ddejfvww7sqtk.cloudfront.net/nft-content-cache/images/EQAzlVUwnQKBSJeyyP-733Xp44tnZDg_b_dzMqZEO-z58yeC/a81361be9c3f949b_18f0b147236"
-              alt=""
-            />
+            <img src="valery.jpg" alt="" />
           </div>
           <div
             style={{
