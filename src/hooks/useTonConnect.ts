@@ -7,7 +7,7 @@ export function useTonConnect(): {
   address: string;
 } {
   const [tonConnectUI] = useTonConnectUI();
-
+  console.log(tonConnectUI, "tonConnectUI");
   return {
     sender: {
       send: async (args: SenderArguments) => {
