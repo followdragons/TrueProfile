@@ -54,7 +54,6 @@ export const Route = createRootRoute({
 
     return (
       <div className="flex h-screen w-screen flex-col">
-        <Outlet />
         {address ? (
           <div
             style={{
@@ -62,9 +61,10 @@ export const Route = createRootRoute({
               borderBottom: "1px solid #00000026",
             }}
           >
-            Address: {extractSegment(address)}
+            Address connected: {extractSegment(address)}
           </div>
         ) : null}
+        <Outlet />
         {/*<div className="p-2 flex gap-2">*/}
         {/*  <Link to="/" className="[&.active]:font-bold">*/}
         {/*    Home*/}
