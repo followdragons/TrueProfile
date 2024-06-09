@@ -24,6 +24,7 @@ WebApp.expand();
 export const Route = createRootRoute({
   component: () => {
     const { address } = useTonConnect();
+    console.log(address, "address");
     const router = useRouter();
     const isSearch =
       router.history.location.pathname === "/TonRockPaperScissors/";
