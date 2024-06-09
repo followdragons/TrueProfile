@@ -36,6 +36,7 @@ export const Route = createRootRoute({
 
     return (
       <div className="flex h-screen w-screen flex-col">
+        <Outlet />
         {address ? <div>Address: {address}</div> : null}
         {/*<div className="p-2 flex gap-2">*/}
         {/*  <Link to="/" className="[&.active]:font-bold">*/}
@@ -46,7 +47,6 @@ export const Route = createRootRoute({
         {/*  </Link>*/}
         {/*</div>*/}
         {/*<hr />*/}
-        <Outlet />
         {/*<Suspense>*/}
         {/*  <TanStackRouterDevtools />*/}
         {/*</Suspense>*/}
