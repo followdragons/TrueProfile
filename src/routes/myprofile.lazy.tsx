@@ -36,10 +36,10 @@ export const MyProfile = () => {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <img width={22} height={22} src="/heart_24.png" alt="" />
+            <img width={22} height={22} src="heart_24.png" alt="" />
             <span>Saved profiles</span>
           </div>
-          <img src="/arrowRight.png" alt="" />
+          <img src="arrowRight.png" alt="" />
         </div>
         <div
           style={{
@@ -52,10 +52,10 @@ export const MyProfile = () => {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <img width={22} height={22} src="/wallet.png" alt="" />
+            <img width={22} height={22} src="wallet.png" alt="" />
             <span>Wallet</span>
           </div>
-          <img src="/arrowRight.png" alt="" />
+          <img src="arrowRight.png" alt="" />
         </div>
         <div
           style={{
@@ -68,10 +68,10 @@ export const MyProfile = () => {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <img src="/aaaa.png" alt="" />
+            <img src="aaaa.png" alt="" />
             <span>Notification</span>
           </div>
-          <img src="/arrowRight.png" alt="" />
+          <img src="arrowRight.png" alt="" />
         </div>
         <div
           style={{
@@ -84,10 +84,10 @@ export const MyProfile = () => {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <img src="/edit.png" alt="" />
+            <img src="edit.png" alt="" />
             <span>My Recommendations</span>
           </div>
-          <img src="/arrowRight.png" alt="" />
+          <img src="arrowRight.png" alt="" />
         </div>
       </div>
     </div>
