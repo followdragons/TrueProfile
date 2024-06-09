@@ -21,6 +21,24 @@ import { TanStackRouterDevtools } from "../components/TanstackRouterDevTools";
 WebApp.ready();
 WebApp.expand();
 
+function extractSegment(inputString) {
+  // Check if the input string is long enough
+  if (inputString.length <= 6) {
+    return "Input string is too short";
+  }
+
+  // Extract the starting part (from the 3rd character)
+  const start = inputString.substring(2, 5);
+
+  // Extract the ending part (4 characters from the end)
+  const end = inputString.substring(inputString.length - 4);
+
+  // Combine the start, ellipsis, and end parts
+  const resultString = `${start}...${end}`;
+
+  return resultString;
+}
+
 export const Route = createRootRoute({
   component: () => {
     const { address } = useTonConnect();
@@ -37,7 +55,16 @@ export const Route = createRootRoute({
     return (
       <div className="flex h-screen w-screen flex-col">
         <Outlet />
-        {address ? <div>Address: {address}</div> : null}
+        {address ? (
+          <div
+            style={{
+              backgroundColor: "#FFFFFFF2",
+              borderBottom: "1px solid #00000026",
+            }}
+          >
+            Address: {extractSegment(address)}
+          </div>
+        ) : null}
         {/*<div className="p-2 flex gap-2">*/}
         {/*  <Link to="/" className="[&.active]:font-bold">*/}
         {/*    Home*/}
