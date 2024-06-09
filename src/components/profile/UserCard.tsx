@@ -3,9 +3,9 @@ import ReactCardFlip from "react-card-flip";
 
 import { VerifiedIcon } from "./assets/VerifiedIcon.tsx";
 
-export const UserCard = () => {
+export const UserCard = ({ my = false }) => {
   const [flipped, setFlipped] = useState(false);
-  const handleFlip = () => setFlipped((prev) => !prev);
+  const handleFlip = () => (my ? null : setFlipped((prev) => !prev));
 
   return (
     <ReactCardFlip isFlipped={flipped} flipDirection="horizontal">
@@ -19,6 +19,7 @@ export const UserCard = () => {
           padding: "16px",
           gap: "8px",
           border: "1px solid #3596FF",
+          borderColor: my ? "transparent" : "#3596FF",
         }}
         onClick={handleFlip}
       >
@@ -52,19 +53,21 @@ export const UserCard = () => {
             <div style={{ fontSize: "20px", fontWeight: "600" }}>Valerii</div>
           </div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            fontSize: "23px",
-            gap: "4px",
-          }}
-        >
-          <img width={29} height={24} src="Icon.png" alt="" />
-          <span style={{ color: "#707579", fontSize: 20, fontWeight: 600 }}>
-            134
-          </span>
-        </div>
+        {!my ? (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              fontSize: "23px",
+              gap: "4px",
+            }}
+          >
+            <img width={29} height={24} src="Icon.png" alt="" />
+            <span style={{ color: "#707579", fontSize: 20, fontWeight: 600 }}>
+              134
+            </span>
+          </div>
+        ) : null}
         <div style={{ fontSize: "17px" }}>
           <div>
             TON Ambassador PM at <a className="text-blue-500">Follow dragons</a>
@@ -82,6 +85,11 @@ export const UserCard = () => {
             </a>
           </div>
         </div>
+        {my ? (
+          <div style={{ width: 53 }} className="second-button">
+            Edit
+          </div>
+        ) : null}
       </div>
       <div
         style={{

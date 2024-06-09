@@ -1,4 +1,6 @@
-export const Profile = ({ fill = "#707579" }) => {
+export const Profile = ({ active }) => {
+  const fill = active ? "#007AFF" : "#707579";
+
   return (
     <svg width="51" height="41" viewBox="0 0 51 41" fill="none">
       <path

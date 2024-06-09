@@ -28,6 +28,9 @@ export const Route = createRootRoute({
     const isRating =
       router.history.location.pathname === "/TonRockPaperScissors/rate";
 
+    const isMyProfile =
+      router.history.location.pathname === "/TonRockPaperScissors/myprofile";
+
     return (
       <div className="flex h-screen w-screen flex-col">
         {/*<div className="p-2 flex gap-2">*/}
@@ -65,9 +68,9 @@ export const Route = createRootRoute({
           <Link to="/">
             <Search active={isSearch} />
           </Link>
-          <div>
-            <Profile />
-          </div>
+          <Link to="/myprofile">
+            <Profile active={isMyProfile} />
+          </Link>
         </div>
       </div>
     );

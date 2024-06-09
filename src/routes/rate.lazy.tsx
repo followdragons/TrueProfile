@@ -1,6 +1,8 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
+import { Likes } from "~/assets/Likes.tsx";
+
 export const Rate = () => {
   const [ratingType, setRatingType] = useState("users");
 
@@ -77,22 +79,7 @@ export const Rate = () => {
                   </div>
                 </div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  fontSize: "23px",
-                  gap: "4px",
-                  marginLeft: "auto",
-                }}
-              >
-                <img width={20} height={17} src="Icon.png" alt="" />
-                <span
-                  style={{ color: "#707579", fontSize: 20, fontWeight: 600 }}
-                >
-                  134
-                </span>
-              </div>
+              <Likes count={134} />
             </div>
           </div>
           <div>
@@ -133,22 +120,7 @@ export const Rate = () => {
                   </div>
                 </div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  fontSize: "23px",
-                  gap: "4px",
-                  marginLeft: "auto",
-                }}
-              >
-                <img width={20} height={17} src="Icon.png" alt="" />
-                <span
-                  style={{ color: "#707579", fontSize: 20, fontWeight: 600 }}
-                >
-                  134
-                </span>
-              </div>
+              <Likes count={100} />
             </div>
           </div>
           <div>
@@ -189,22 +161,7 @@ export const Rate = () => {
                   </div>
                 </div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  fontSize: "23px",
-                  gap: "4px",
-                  marginLeft: "auto",
-                }}
-              >
-                <img width={20} height={17} src="Icon.png" alt="" />
-                <span
-                  style={{ color: "#707579", fontSize: 20, fontWeight: 600 }}
-                >
-                  134
-                </span>
-              </div>
+              <Likes count={80} />
             </div>
           </div>
           <div>
@@ -245,22 +202,7 @@ export const Rate = () => {
                   </div>
                 </div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  fontSize: "23px",
-                  gap: "4px",
-                  marginLeft: "auto",
-                }}
-              >
-                <img width={20} height={17} src="Icon.png" alt="" />
-                <span
-                  style={{ color: "#707579", fontSize: 20, fontWeight: 600 }}
-                >
-                  134
-                </span>
-              </div>
+              <Likes count={70} />
             </div>
           </div>
           <div>
@@ -301,22 +243,7 @@ export const Rate = () => {
                   </div>
                 </div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  fontSize: "23px",
-                  gap: "4px",
-                  marginLeft: "auto",
-                }}
-              >
-                <img width={20} height={17} src="Icon.png" alt="" />
-                <span
-                  style={{ color: "#707579", fontSize: 20, fontWeight: 600 }}
-                >
-                  134
-                </span>
-              </div>
+              <Likes count={60} />
             </div>
           </div>
           <div>
@@ -357,22 +284,7 @@ export const Rate = () => {
                   </div>
                 </div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  fontSize: "23px",
-                  gap: "4px",
-                  marginLeft: "auto",
-                }}
-              >
-                <img width={20} height={17} src="Icon.png" alt="" />
-                <span
-                  style={{ color: "#707579", fontSize: 20, fontWeight: 600 }}
-                >
-                  134
-                </span>
-              </div>
+              <Likes count={50} />
             </div>
           </div>
           <div>
@@ -413,22 +325,7 @@ export const Rate = () => {
                   </div>
                 </div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  fontSize: "23px",
-                  gap: "4px",
-                  marginLeft: "auto",
-                }}
-              >
-                <img width={20} height={17} src="Icon.png" alt="" />
-                <span
-                  style={{ color: "#707579", fontSize: 20, fontWeight: 600 }}
-                >
-                  134
-                </span>
-              </div>
+              <Likes count={40} />
             </div>
           </div>
           <div>
@@ -469,22 +366,7 @@ export const Rate = () => {
                   </div>
                 </div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  fontSize: "23px",
-                  gap: "4px",
-                  marginLeft: "auto",
-                }}
-              >
-                <img width={20} height={17} src="Icon.png" alt="" />
-                <span
-                  style={{ color: "#707579", fontSize: 20, fontWeight: 600 }}
-                >
-                  134
-                </span>
-              </div>
+              <Likes count={40} />
             </div>
           </div>
         </div>

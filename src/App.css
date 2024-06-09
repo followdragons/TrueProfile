@@ -20,3 +20,9 @@
     background: #007AFF;
     color: white;
 }
+
+.second-button {
+    padding: 8px 12px;
+    border: 1px solid #0000000D;
+    border-radius: 20px;
+}
